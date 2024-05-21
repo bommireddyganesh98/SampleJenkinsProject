@@ -3,6 +3,7 @@ package com.base;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -19,19 +20,27 @@ public class BaseClass {
 			System.out.println("Chrome WebDriver initialized.");
 		} else if (System.getProperty("browser").equalsIgnoreCase("Edge")) {
 			WebDriverManager.edgedriver().setup();
-			driver = new EdgeDriver();
+			EdgeOptions options = new EdgeOptions();
+			options.addArguments("headless");
+			options.addArguments("disable-gpu");
+			driver = new EdgeDriver(options);
 			System.out.println("Edge WebDriver initialized.");
 		}
 //		WebDriverManager.chromedriver().setup();
 //		driver = new ChromeDriver();
-		driver.get(System.getProperty("url"));
-		driver.get("https://www.google.com/");
-
+		String url = System.getProperty("url");
+		if (url != null && !url.isEmpty()) {
+			driver.get(url);
+		} else {
+			driver.get("https://www.google.com/");
+		}
 	}
 
 	@AfterMethod
 	public void tearDown() {
-		driver.quit();
+		if (driver != null) {
+			driver.quit();
+		}
 	}
 
 }
