@@ -23,20 +23,22 @@ public class BaseClass {
 
 		if (browser.equalsIgnoreCase("Edge")) {
 			WebDriverManager.edgedriver().setup();
-            EdgeOptions options = new EdgeOptions();
-            // Try initially without headless to diagnose issues
-            // options.addArguments("headless");
-            options.addArguments("disable-gpu");
-            driver = new EdgeDriver(options);
-            System.out.println("Edge WebDriver initialized.");			
+
+			// Create EdgeOptions and add arguments
+			EdgeOptions options = new EdgeOptions();
+			options.addArguments("--disable-dev-shm-usage");
+			options.addArguments("--no-sandbox");
+
+			// Start the Edge WebDriver with options
+			driver = new EdgeDriver(options);
+			System.out.println("Edge WebDriver initialized.");
 		} else if (browser.equalsIgnoreCase("Chrome")) {
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
 			System.out.println("Chrome WebDriver initialized.");
-		}
-		else if(browser.equalsIgnoreCase("Firefox")) {
+		} else if (browser.equalsIgnoreCase("Firefox")) {
 			WebDriverManager.firefoxdriver().setup();
-			driver=new FirefoxDriver();
+			driver = new FirefoxDriver();
 			System.out.println("Firefox WebDriver Initialized");
 		}
 
