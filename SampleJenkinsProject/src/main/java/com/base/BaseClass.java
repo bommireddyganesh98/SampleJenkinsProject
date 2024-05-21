@@ -11,6 +11,8 @@ import org.testng.annotations.Parameters;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
+import java.io.IOException;
+
 public class BaseClass {
 	WebDriver driver;
 
@@ -22,6 +24,8 @@ public class BaseClass {
 		}
 
 		if (browser.equalsIgnoreCase("Edge")) {
+			killEdgeProcesses(); // Kill any previous instances of Microsoft Edge
+
 			WebDriverManager.edgedriver().setup();
 
 			// Create EdgeOptions and add arguments
@@ -49,6 +53,15 @@ public class BaseClass {
 	public void tearDown() {
 		if (driver != null) {
 			driver.quit();
+		}
+	}
+
+	private void killEdgeProcesses() {
+		try {
+			Runtime.getRuntime().exec("taskkill /f /im msedge.exe");
+			System.out.println("Previous instances of Microsoft Edge killed successfully.");
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
