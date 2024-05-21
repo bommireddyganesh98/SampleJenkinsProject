@@ -17,7 +17,7 @@ public class BaseClass {
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
 			System.out.println("Chrome WebDriver initialized.");
-		} else if (System.getProperty("browser").contains("Edge")) {
+		} else if (System.getProperty("browser").equalsIgnoreCase("Edge")) {
 			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
 			System.out.println("Edge WebDriver initialized.");
