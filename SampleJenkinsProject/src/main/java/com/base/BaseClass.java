@@ -30,11 +30,11 @@ public class BaseClass {
 
 			// Create EdgeOptions and add arguments
 			EdgeOptions options = new EdgeOptions();
-			options.addArguments("--disable-dev-shm-usage");
-			options.addArguments("--no-sandbox");
+//			options.addArguments("--disable-dev-shm-usage");
+//			options.addArguments("--no-sandbox");
 
 			// Start the Edge WebDriver with options
-			driver = new EdgeDriver(options);
+			driver = new EdgeDriver();
 			System.out.println("Edge WebDriver initialized.");
 		} else if (browser.equalsIgnoreCase("Chrome")) {
 			WebDriverManager.chromedriver().setup();
