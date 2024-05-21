@@ -20,17 +20,18 @@ public class BaseClass {
 			throw new IllegalArgumentException("Browser and URL parameters cannot be null");
 		}
 
-		if (browser.equalsIgnoreCase("Chrome")) {
-			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
-			System.out.println("Chrome WebDriver initialized.");
-		} else if (browser.equalsIgnoreCase("Edge")) {
+		if (browser.equalsIgnoreCase("Edge")) {
 			WebDriverManager.edgedriver().setup();
 			EdgeOptions options = new EdgeOptions();
 			options.addArguments("headless");
 			options.addArguments("disable-gpu");
 			driver = new EdgeDriver(options);
 			System.out.println("Edge WebDriver initialized.");
+			
+		} else if (browser.equalsIgnoreCase("Chrome")) {
+			WebDriverManager.chromedriver().setup();
+			driver = new ChromeDriver();
+			System.out.println("Chrome WebDriver initialized.");
 		}
 
 		driver.get(url);
