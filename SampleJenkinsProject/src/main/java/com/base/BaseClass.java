@@ -22,10 +22,7 @@ public class BaseClass {
 
 		if (browser.equalsIgnoreCase("Edge")) {
 			WebDriverManager.edgedriver().setup();
-			EdgeOptions options = new EdgeOptions();
-			options.addArguments("headless");
-			options.addArguments("disable-gpu");
-			driver = new EdgeDriver(options);
+			driver = new EdgeDriver();
 			System.out.println("Edge WebDriver initialized.");
 			
 		} else if (browser.equalsIgnoreCase("Chrome")) {
