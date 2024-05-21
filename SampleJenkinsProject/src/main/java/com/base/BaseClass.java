@@ -18,12 +18,13 @@ public class BaseClass {
 			driver = new ChromeDriver();
 			System.out.println("Chrome WebDriver initialized.");
 		} else if (System.getProperty("browser").contains("Edge")) {
+			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
-
 			System.out.println("Edge WebDriver initialized.");
 		}
-		WebDriverManager.chromedriver().setup();
-		driver = new ChromeDriver();
+//		WebDriverManager.chromedriver().setup();
+//		driver = new ChromeDriver();
+		driver.get(System.getProperty("url"));
 		driver.get("https://www.google.com/");
 
 	}
