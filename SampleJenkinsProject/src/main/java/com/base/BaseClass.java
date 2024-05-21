@@ -6,6 +6,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -13,12 +14,17 @@ public class BaseClass {
 	WebDriver driver;
 
 	@BeforeMethod
-	public void setup() {
-		if (System.getProperty("browser").equalsIgnoreCase("Chrome")) {
+	@Parameters({ "browser", "url" })
+	public void setup(String browser, String url) {
+		if (browser == null || url == null) {
+			throw new IllegalArgumentException("Browser and URL parameters cannot be null");
+		}
+
+		if (browser.equalsIgnoreCase("Chrome")) {
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
 			System.out.println("Chrome WebDriver initialized.");
-		} else if (System.getProperty("browser").equalsIgnoreCase("Edge")) {
+		} else if (browser.equalsIgnoreCase("Edge")) {
 			WebDriverManager.edgedriver().setup();
 			EdgeOptions options = new EdgeOptions();
 			options.addArguments("headless");
@@ -26,14 +32,8 @@ public class BaseClass {
 			driver = new EdgeDriver(options);
 			System.out.println("Edge WebDriver initialized.");
 		}
-//		WebDriverManager.chromedriver().setup();
-//		driver = new ChromeDriver();
-		String url = System.getProperty("url");
-		if (url != null && !url.isEmpty()) {
-			driver.get(url);
-		} else {
-			driver.get("https://www.google.com/");
-		}
+
+		driver.get(url);
 	}
 
 	@AfterMethod
@@ -42,5 +42,4 @@ public class BaseClass {
 			driver.quit();
 		}
 	}
-
 }
