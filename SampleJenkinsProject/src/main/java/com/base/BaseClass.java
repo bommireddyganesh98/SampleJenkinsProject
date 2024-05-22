@@ -57,10 +57,11 @@ public class BaseClass {
 
 		// Create EdgeOptions and add arguments
 		EdgeOptions options = new EdgeOptions();
-		options.addArguments("--no-sandbox"); // Bypass OS security model
-		options.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
-		options.addArguments("--remote-debugging-port=0");
-		options.addArguments("--headless"); // No browser window
+		options.setBinary("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
+//		options.addArguments("--no-sandbox"); // Bypass OS security model
+//		options.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
+//		options.addArguments("--remote-debugging-port=0");
+//		options.addArguments("--headless"); // No browser window
 
 		// Initialize the Edge driver with options
 		driver = new EdgeDriver(options);
