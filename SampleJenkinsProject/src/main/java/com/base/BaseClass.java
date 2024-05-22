@@ -26,42 +26,18 @@ public class BaseClass {
 			throw new IllegalArgumentException("Browser and URL parameters cannot be null");
 		}
 
-		if (browser.equalsIgnoreCase("Edge")) {
-			killEdgeProcesses(); // Kill any previous instances of Microsoft Edge
-
-			WebDriverManager.edgedriver().setup();
-
-			// Create EdgeDriverService with detailed configurations
-			EdgeDriverService service = new EdgeDriverService.Builder().withLoglevel(ChromiumDriverLogLevel.DEBUG) // Set
-																													// log
-																													// level
-																													// to
-																													// DEBUG
-					.withLogOutput(System.out) // Output logs to the console
-					.withReadableTimestamp(true) // Timestamps in logs are readable
-					// .usingPort(32123) // Optional: Specify the port if needed
-					.build();
-
-			// Create EdgeOptions and add arguments
-			EdgeOptions options = new EdgeOptions();
-			options.addArguments("--no-sandbox"); // Bypass OS security model
-			options.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
-			options.addArguments("--remote-debugging-port=0"); // Random port for remote debugging
-			// options.addArguments("--remote-debugging-port=32123"); // Optional: Specify
-			// the remote debugging port if needed
-			options.addArguments("--headless"); // Run in headless mode (no browser window)
-
-			// Start the Edge WebDriver with service and options
-			driver = new EdgeDriver(service, options);
-			System.out.println("Edge WebDriver initialized.");
-		} else if (browser.equalsIgnoreCase("Chrome")) {
-			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
-			System.out.println("Chrome WebDriver initialized.");
-		} else if (browser.equalsIgnoreCase("Firefox")) {
-			WebDriverManager.firefoxdriver().setup();
-			driver = new FirefoxDriver();
-			System.out.println("Firefox WebDriver initialized.");
+		switch (browser.toLowerCase()) {
+		case "edge":
+			setupEdgeDriver();
+			break;
+		case "chrome":
+			setupChromeDriver();
+			break;
+		case "firefox":
+			setupFirefoxDriver();
+			break;
+		default:
+			throw new IllegalArgumentException("Unsupported browser: " + browser);
 		}
 
 		driver.get(url);
@@ -72,6 +48,46 @@ public class BaseClass {
 		if (driver != null) {
 			driver.quit();
 		}
+	}
+
+	private void setupEdgeDriver() {
+		killEdgeProcesses(); // Kill any previous instances of Microsoft Edge
+
+		WebDriverManager.edgedriver().setup();
+
+		// Create EdgeDriverService with detailed configurations
+		EdgeDriverService service = new EdgeDriverService.Builder().withLoglevel(ChromiumDriverLogLevel.DEBUG) // Set
+																												// log
+																												// level
+																												// to
+																												// DEBUG
+				.withLogOutput(System.out) // Output logs to the console
+				.withReadableTimestamp(true) // Timestamps in logs are readable
+				// .usingPort(32123) // Optional: Specify the port if needed
+				.build();
+
+		// Create EdgeOptions and add arguments
+		EdgeOptions options = new EdgeOptions();
+		options.addArguments("--no-sandbox"); // Bypass OS security model
+		options.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
+		options.addArguments("--remote-debugging-port=0"); // Random port for remote debugging
+		options.addArguments("--headless"); // Run in headless mode (no browser window)
+
+		// Start the Edge WebDriver with service and options
+		driver = new EdgeDriver(service, options);
+		System.out.println("Edge WebDriver initialized.");
+	}
+
+	private void setupChromeDriver() {
+		WebDriverManager.chromedriver().setup();
+		driver = new ChromeDriver();
+		System.out.println("Chrome WebDriver initialized.");
+	}
+
+	private void setupFirefoxDriver() {
+		WebDriverManager.firefoxdriver().setup();
+		driver = new FirefoxDriver();
+		System.out.println("Firefox WebDriver initialized.");
 	}
 
 	private void killEdgeProcesses() {
