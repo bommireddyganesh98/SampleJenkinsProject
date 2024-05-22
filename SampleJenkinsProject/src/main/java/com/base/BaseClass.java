@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterMethod;
@@ -50,7 +51,7 @@ public class BaseClass {
 	private void setupEdgeDriver() {
 //		killEdgeProcesses(); // Kill any previous instances of Microsoft Edge
 
-		WebDriverManager.edgedriver().setup();
+//		WebDriverManager.edgedriver().setup();
 
 		// Create EdgeDriverService with detailed configurations
 //		EdgeDriverService service = new EdgeDriverService.Builder().withLoglevel(ChromiumDriverLogLevel.DEBUG) // Set
@@ -88,7 +89,11 @@ public class BaseClass {
 //		options.addArguments("--use-mock-keychain"); // Use mock keychain
 //
 //		// Start the Edge WebDriver with service and options
-		driver = new EdgeDriver();
+		 System.setProperty("webdriver.edge.driver", "C:\\Tools\\edgedriver.exe");
+			EdgeOptions options = new EdgeOptions();
+		    options.setBinary("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
+
+		driver = new EdgeDriver(options);
 		System.out.println("Edge WebDriver initialized.");
 	}
 
