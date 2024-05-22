@@ -57,7 +57,7 @@ public class BaseClass {
 
 		// Create EdgeOptions and add arguments
 		EdgeOptions options = new EdgeOptions();
-		options.setBinary("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe");
+		options.setBinary("C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\new_msedge.exe");
 //		options.addArguments("--no-sandbox"); // Bypass OS security model
 //		options.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
 //		options.addArguments("--remote-debugging-port=0");
