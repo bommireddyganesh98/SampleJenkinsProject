@@ -70,8 +70,25 @@ public class BaseClass {
 		EdgeOptions options = new EdgeOptions();
 		options.addArguments("--no-sandbox"); // Bypass OS security model
 		options.addArguments("--disable-dev-shm-usage"); // Overcome limited resource problems
-		options.addArguments("--remote-debugging-port=0"); // Random port for remote debugging
+		options.addArguments("--remote-debugging-pipe"); // Use pipe instead of port for remote debugging
 		options.addArguments("--headless"); // Run in headless mode (no browser window)
+		options.addArguments("--disable-gpu"); // Disable GPU to avoid potential issues
+		options.addArguments("--disable-software-rasterizer"); // Disable software rasterizer
+		options.addArguments("--disable-extensions"); // Disable extensions
+		options.addArguments("--disable-background-networking"); // Disable background networking
+		options.addArguments("--disable-background-timer-throttling"); // Disable background timer throttling
+		options.addArguments("--disable-client-side-phishing-detection"); // Disable client-side phishing detection
+		options.addArguments("--disable-default-apps"); // Disable default apps
+		options.addArguments("--disable-hang-monitor"); // Disable hang monitor
+		options.addArguments("--disable-popup-blocking"); // Disable popup blocking
+		options.addArguments("--disable-prompt-on-repost"); // Disable prompt on repost
+		options.addArguments("--disable-sync"); // Disable sync
+		options.addArguments("--enable-automation"); // Enable automation
+		options.addArguments("--enable-logging"); // Enable logging
+		options.addArguments("--log-level=0"); // Set log level to 0 (INFO)
+		options.addArguments("--no-first-run"); // Disable first run
+		options.addArguments("--test-type=webdriver"); // Set test type to webdriver
+		options.addArguments("--use-mock-keychain"); // Use mock keychain
 
 		// Start the Edge WebDriver with service and options
 		driver = new EdgeDriver(service, options);
